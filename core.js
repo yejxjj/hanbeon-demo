@@ -1,0 +1,13 @@
+(function(root){
+'use strict';
+const courses=['컴퓨터네트워크','확률통계','클라우드컴퓨팅'];
+const catalog=courses.flatMap((course,c)=>[11,12,13].map((week,i)=>({id:`c${c}-w${week}`,course,week,date:`2026-11-${String(9+i*7).padStart(2,'0')}`,title:`${course} ${week}주차 강의노트`,type:'TXT',content:`한 번만 가상 캠퍼스 | 학습용 샘플\n과목: ${course}\n주차: ${week}\n학습 목표: ${['패킷 전달과 라우팅','표본평균과 추정','가상화와 자원 관리'][c]}\n이 자료는 시연을 위해 직접 생성한 예제이며 실제 대학 자료가 아닙니다.\n`})));
+const sequence=['course','date','search','open','download'];
+function similarity(a,b){let d=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=0;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return 1-d[a.length][b.length]/Math.max(a.length,b.length,1);}
+function analyze(sessions,muted=false){if(muted)return null;const valid=sessions.filter(s=>s.goal==='lecture.download'&&s.steps.includes('search')&&s.steps.includes('open')&&s.steps.at(-1)==='download');let best=[];for(const seed of valid){const group=valid.filter(s=>similarity(seed.steps.filter(x=>!['course','date'].includes(x)),s.steps.filter(x=>!['course','date'].includes(x)))>=.7);if(group.length>best.length)best=group;}if(best.length<3)return null;const vars=['course','date','filename'].filter(k=>new Set(best.map(s=>s[k])).size>1);return {goal:'새 강의자료를 찾아 내려받기',count:best.length,similarity:Math.round(100*best.reduce((n,s)=>n+similarity(best[0].steps,s.steps),0)/best.length),variables:vars,constants:['자료 검색','내용 확인','파일 생성'],evidence:best.map(s=>({course:s.course,date:s.date,steps:s.steps})),manualSteps:Math.round(best.reduce((n,s)=>n+s.steps.length,0)/best.length)};}
+function search(course,date,empty=false){return empty?[]:catalog.filter(d=>d.course===course&&d.date>=date);}
+function plan(candidate,course,date){if(!candidate||!courses.includes(course)||!/^2026-11-\d{2}$/.test(date))throw Error('계획 입력을 확인해 주세요.');return {goal:candidate.goal,course,date,scope:'가상 캠퍼스만',steps:['검색 조건 적용','검색 버튼 탐색','자료 내용 확인','결과 파일 생성·검증'],success:'과목·기준일 일치, 본문 존재, 결과 파일 재검증',approved:false};}
+function verify(docs,course,date){return docs.length>0&&new Set(docs.map(d=>d.id)).size===docs.length&&docs.every(d=>d.course===course&&d.date>=date&&typeof d.content==='string'&&d.content.includes(`과목: ${course}`));}
+function csv(docs){const q=s=>'"'+String(s).replaceAll('"','""')+'"';return '\ufeff'+[['id','course','date','title','content'],...docs.map(d=>[d.id,d.course,d.date,d.title,d.content])].map(r=>r.map(q).join(',')).join('\r\n');}
+const api={courses,catalog,sequence,similarity,analyze,search,plan,verify,csv};if(typeof module!=='undefined')module.exports=api;root.Hanbeon=api;
+})(typeof globalThis==='undefined'?this:globalThis);

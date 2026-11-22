@@ -1,2 +1,3 @@
-# hanbeon-demo
-HANBEON public interactive demo. Synthetic data; no API keys or local filesystem access.
+# 한 번만 공개 데모
+
+직접 만든 가상 강의자료로 반복 발견·승인·CSV 생성을 조작하는 공개 시연입니다. 실제 Gemini API와 PC 파일 기능은 온라인 공개 데모에 연결하지 않았습니다. API 키·서버 소스·실제 대학 자료는 포함하지 않습니다.
