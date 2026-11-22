@@ -1,4 +1,4 @@
 # 한 번만
-https://yejxjj.github.io/hanbeon-demo/
+https://yejxjj.github.io/hanbeon-demo/#demo
 
-제품 콘셉트 소개와 실제 규칙 기반 웹 시연. 강의·공고·영수증은 합성 자료이며 Gemini·PC 저장은 별도 로컬 기능입니다.
+내 TXT·Markdown·CSV 파일을 브라우저 안에서 처리합니다. 전체 웹 관찰과 임의 앱 조작은 지원하지 않습니다.
