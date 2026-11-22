@@ -1,14 +1,21 @@
-<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>한 번만 · 반복을 발견하는 작은 동료</title><link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="connected.css"><body><header><a class="brand" href="#">한 번만<span class="brandmark">↗</span></a><span class="tag">INTERACTIVE PROOF OF CONCEPT</span><button id="reset" class="quiet">기록 삭제 · 처음부터</button></header>
-<main><section class="hero"><div><p class="eyebrow">AUTOMATION, WITHOUT THE HOMEWORK.</p><h1>또 하고 있네요.<br><span>다음엔, 한 번만.</span></h1><p class="intro">평소처럼 자료를 찾으세요. 반복은 우리가 발견하고,<br>실행은 당신이 결정해요.</p></div><aside class="hero-note"><span class="spark">✳</span><b>클릭의 반복에서<br>작업의 공통점으로.</b><p>과목과 날짜가 달라도 같은 목표라면,<br>다음 작업에 쓸 수 있는 계획이 됩니다.</p><small>로컬 규칙 기반 추론 · 외부 AI 모델 호출 없음</small></aside></section>
-<section class="consent"><label><input id="consent" type="checkbox"> 가상 캠퍼스의 행동 기록에 동의합니다.</label><span>이 페이지 안의 과목·기준일·행동만 기기에 저장 · 외부 전송 없음</span></section>
-<div class="metrics"><div><span id="status">관찰 전</span><small>현재 상태</small></div><div><span id="count">0 / 3</span><small>완료한 수동 작업</small></div><div><span id="patterns">0</span><small>발견한 반복</small></div><div><span id="saved">—</span><small>최근 실행의 수동 단계 비교</small></div></div>
-<div class="workspace"><section class="panel campus"><div class="panel-heading"><div><p class="eyebrow">01 / YOUR EVERYDAY WORK</p><h2>가상 캠퍼스 자료실</h2></div><span class="pill">직접 조작하는 시연 사이트</span></div><p class="hint" id="guide">동의 후 과목 → 기준일 → 검색 → 내용 확인 → 내려받기를 3회 진행하세요.</p>
-<div class="filters"><label>과목<select id="course"><option>컴퓨터네트워크</option><option>확률통계</option><option>클라우드컴퓨팅</option></select></label><label>이 날짜 이후<input id="date" type="date" value="2026-11-09" min="2026-11-01" max="2026-11-30"></label><button id="search" data-action="search" class="primary">자료 검색</button></div>
-<div id="results" class="results"><div class="empty"><span>⌕</span><b>익숙한 일을 시작해 보세요.</b><p>과목과 날짜를 바꾸며 자료를 내려받으면<br>완료한 작업끼리 비교합니다.</p></div></div><div id="detail"></div>
-<details><summary>예외 상황 실험실</summary><div class="lab"><label>화면 / 데이터 조건<select id="scenario"><option value="normal">정상 화면</option><option value="renamed">검색 버튼 문구·구조 변경</option><option value="empty">검색 결과 없음</option><option value="missing">파일 본문 누락</option><option value="ambiguous">검색 버튼 두 개 · 모호함</option></select></label><p>가상 사이트의 실제 DOM·데이터를 변경합니다. 외부 사이트 복구는 검증하지 않았습니다.</p><div id="alternate"></div></div></details>
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>한 번만 · 반복을 알아채는 AI</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="connected.css"></head>
+<body>
+<header><a class="brand" href="#">한 번만</a><span class="header-caption">반복을 알아채는 AI</span><button id="reset" class="quiet">기록 삭제 · 처음부터</button></header>
+<main>
+<section class="hero"><div><p class="hero-kicker">HANBEON</p><h1>반복은 맡기고.<br><span>시간은 당신에게.</span></h1><p class="intro">평소처럼 일하세요. 반복되는 웹 작업을 발견하고,<br>다음부터 자동화할지 먼저 물어봅니다.</p><p class="demo-caption">아래는 직접 조작하는 시연 공간입니다.</p></div></section>
+<section class="consent"><label><input id="consent" type="checkbox"> 이 시연 공간의 작업 기록에 동의합니다.</label><span>선택한 항목·날짜·행동만 이 기기에 저장합니다.</span></section>
+<div class="metrics"><div><span id="status">관찰 전</span><small>기록 상태</small></div><div><span id="count">0 / 3</span><small>완료한 작업</small></div><div><span id="patterns">0</span><small>발견한 반복</small></div><div><span id="saved">—</span><small>수동 단계 비교</small></div></div>
+<div class="workspace">
+<section class="panel campus"><div class="panel-heading"><h2>평소 하던 작업</h2><span class="pill">직접 만든 시연 데이터</span></div>
+<label class="work-type-label">시연할 작업<select id="workType"><option value="lecture.download">강의자료 모으기</option><option value="job.collect">관심 공고 정리</option><option value="receipt.download">영수증 모으기</option></select></label><p class="hint" id="guide">항목과 날짜를 고른 뒤, 검색 → 내용 확인 → 내려받기를 진행하세요.</p>
+<div class="filters"><label>항목<select id="course"><option>컴퓨터네트워크</option><option>확률통계</option><option>클라우드컴퓨팅</option></select></label><label>이 날짜 이후<input id="date" type="date" value="2026-11-09" min="2026-11-01" max="2026-11-30"></label><button id="search" data-action="search" class="primary">자료 검색</button></div>
+<div id="results" class="results"><div class="empty"><b>항목과 날짜를 선택해 검색하세요.</b><p>원하는 작업을 고르고 평소처럼 진행하세요.</p></div></div><div id="detail"></div>
+<details><summary>예외 상황 실험실</summary><div class="lab"><label>화면 / 데이터 조건<select id="scenario"><option value="normal">정상 화면</option><option value="renamed">검색 버튼 문구·구조 변경</option><option value="empty">검색 결과 없음</option><option value="missing">파일 본문 누락</option><option value="ambiguous">검색 버튼 두 개 · 모호함</option></select></label><p>가상 사이트의 화면·데이터를 바꿔 오류와 복구를 확인합니다.</p><div id="alternate"></div></div></details>
 <details><summary>행동 근거 · 기록 보기</summary><div id="events" class="eventlog">아직 기록이 없습니다.</div><button id="export" class="quiet">기록 JSON 내보내기</button></details>
 </section>
-<section class="panel assistant"><div class="panel-heading"><div><p class="eyebrow">02 / YOUR NEXT TIME</p><h2>작은 자동화 동료 <span class="dot"></span></h2></div></div><div id="insight"><div class="waiting"><span>✳</span><h3>먼저 일해 보세요.<br>아직 추천하지 않을게요.</h3><p>단순한 방문은 반복 작업으로 세지 않아요.<br>자료를 내려받아 작업이 끝나야 비교합니다.</p></div></div>
-<div id="execution" aria-live="polite"></div><div id="output"></div></section></div>
-<section class="bottom"><b>한 번의 승인, 확인 가능한 결과.</b><p>가상 자료 검색과 파일 생성은 실제로 동작합니다. 대학 사이트 연결·폴더 이동·범용 LLM 의도 이해는 구현 범위에 포함되지 않습니다.</p></section><footer>한 번만 / Elice AI Challenge 2026 <span>Built with generative AI assistance · 검증 가능한 작은 자동화</span></footer></main><script src="core.js"></script><script src="app.js"></script><script src="connected.js"></script></body></html>
+<section class="panel assistant"><div class="panel-heading"><h2>발견한 반복</h2></div><div id="insight"></div><div id="execution" aria-live="polite"></div><div id="output"></div></section>
+</div>
+<section class="bottom"><p>자동화 제안은 작업이 완료된 기록에서 만듭니다. 공개 시연은 규칙 기반이며, Gemini·PC 연결은 아래에서 확인할 수 있습니다.</p></section>
+<footer>한 번만 · Elice AI Challenge 2026</footer>
+</main><script src="core.js"></script><script src="app.js"></script><script src="connected.js"></script></body></html>
